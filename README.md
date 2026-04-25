@@ -6,7 +6,7 @@
 
 This project investigates whether technical price indicators can predict the direction of short-term stock returns for large-cap U.S. equities. Using historical price and volume data from Yahoo Finance, a set of technical indicators—including momentum, moving averages, volatility, and volume-based features are developed. Baseline logistic regression classifier is trained using a chronological train/ test split.
 
-The baseline model achieved an accuracy of approximately 52% and a ROC-AUC of approximately 0.51. The performance is only slightly better than random guessing. These results suggest the technical indicators provide minimal predictive power for short-term stock movements in large-cap stocks.
+The baseline model achieved an accuracy of approximately 52% and a ROC-AUC of approximately 0.51. The model’s accuracy is comparable to a majority-class baseline, reinforcing that the model does not provide meaningful predictive improvement. These results suggest the technical indicators provide minimal predictive power for short-term stock movements in large-cap stocks.
 
 #### Rationale
 
@@ -43,7 +43,7 @@ The logistic regression coefficients suggest the presence of weak and competing 
 
 In contrast, longer-term return measures (5-day and 10-day returns), RSI, and intraday price changes show negative coefficients, suggesting mild mean reversion effects, where recent gains may be followed by short-term pullbacks.
 
-However, the magnitude of these coefficients is small, and the model’s overall performance (ROC-AUC ≈ 0.50) indicates that these relationships are weak and do not translate into meaningful predictive power. This suggests that while certain technical patterns may exist, they are not sufficiently strong or stable to reliably predict short-term stock returns in large-cap equities.
+However, the magnitude of these coefficients is small, and the model’s overall performance (ROC-AUC ~ 0.51) indicates that these relationships are weak and do not translate into meaningful predictive power. This suggests that while certain technical patterns may exist, they are not sufficiently strong or stable to reliably predict short-term stock returns in large-cap equities.
 
 This combination of weak momentum and mean reversion effects is consistent with the intuition that short-term stock price movements are often noisy and difficult to predict using technical indicators alone.
 
