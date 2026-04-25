@@ -1,28 +1,22 @@
-## Predicting Short-Term Stock Returns Using Technical Indicators
+### Predicting Short-Term Stock Returns Using Technical Indicators
 
-#### Notebook Link: [Capstone Notebook](./capstone_v1.ipynb)
+**Avanthi Boopalan**
 
-### Executive Summary
+#### Executive Summary
 
-This project investigates whether technical price indicators can predict the direction of short-term stock returns for large-cap U.S. equities. Using historical price and volume data from Yahoo Finance, a set of technical indicators—including momentum, moving averages, volatility, and volume-based features—were engineered and used to train a logistic regression classifier.
+This project investigates whether technical price indicators can predict the direction of short-term stock returns for large-cap U.S. equities. Using historical price and volume data from Yahoo Finance, a set of technical indicators—including momentum, moving averages, volatility, and volume-based features are developed. Baseline logistic regression classifier is trained using a chronological train/ test split.
 
-The baseline model achieved an accuracy of approximately 52% and a ROC-AUC of approximately 0.51, indicating that it performs only marginally better than random guessing. These results suggest that technical indicators alone provide limited predictive power for short-term stock movements in large-cap equities.
+The baseline model achieved an accuracy of approximately 52% and a ROC-AUC of approximately 0.51. The performance is only slightly better than random guessing. These results suggest the technical indicators provide minimal predictive power for short-term stock movements in large-cap stocks.
 
----
+#### Rationale
 
-### Problem Statement
+Small improvements in predicting short-term stock returns should help improve portfolio performance over time. Investors that don’t have access to data or a systematic analysis could be using intuition or be reacting to trends and the news. This project provides a data-driven framework to quantify the probability of stock returns and can help investment allocations, risk mitigation and a systematic approach to trading decisions. If we can glean actionable insights from the model, it should help improve decision-making compared to naive methods. With the influence of technology, automation and algorithmic trading in markets, applying machine learning techniques to investment analysis is more appropriate with the technological shift across industries.
 
-Predicting stock price movements is a fundamental challenge in finance and machine learning. This project evaluates whether commonly used technical indicators contain enough predictive signal to determine whether a stock will generate a positive return over the next five trading days.
-
----
-
-### Research Question
+#### Research Question
 
 Can technical price indicators predict whether large-cap U.S. stocks will generate a positive return over the next five trading days?
 
----
-
-### Data Sources
+#### Data Sources
 
 - Yahoo Finance (via `yfinance`)
 - Selected large-cap U.S. stocks:
@@ -33,107 +27,37 @@ Can technical price indicators predict whether large-cap U.S. stocks will genera
 Note:
 getData.ipynb contains the data acquisition workflow using yfinance. The main analysis notebook, capstone_v1.ipynb, uses the saved dataset for reproducibility. Users can rerun getData.ipynb to refresh the dataset or test alternate date ranges.
 
----
-
-### Project Workflow
+#### Methodology
 
 1. Data acquisition using Yahoo Finance
-2. Feature engineering using technical indicators
-3. Target variable creation (5-day forward return direction)
-4. Exploratory Data Analysis (EDA)
-5. Model training using Logistic Regression
-6. Model evaluation using classification metrics and ROC-AUC
-7. Interpretation of results and feature coefficients
+2. Data Preparation
+3. Feature engineering using technical indicators
+4. Target variable creation (5-day forward return direction)
+5. Exploratory Data Analysis (EDA)
+6. Model training using Logistic Regression
+7. Model evaluation using classification metrics and ROC-AUC
+8. Interpretation of results and feature coefficients
 
----
+#### Results
+The logistic regression coefficients suggest the presence of weak and competing effects between momentum and mean reversion. Indicators such as the moving average ratio (MA5/MA20), price relative to the 20-day moving average, and one-day returns exhibit small positive coefficients, indicating a slight tendency toward short-term momentum.
 
-### Data Preparation
+In contrast, longer-term return measures (5-day and 10-day returns), RSI, and intraday price changes show negative coefficients, suggesting mild mean reversion effects, where recent gains may be followed by short-term pullbacks.
 
-- Data reshaped into a stock-day level dataset
-- Missing values from rolling calculations removed
-- No duplicate records found
-- Chronological train/test split used to avoid look-ahead bias
+However, the magnitude of these coefficients is small, and the model’s overall performance (ROC-AUC ≈ 0.50) indicates that these relationships are weak and do not translate into meaningful predictive power. This suggests that while certain technical patterns may exist, they are not sufficiently strong or stable to reliably predict short-term stock returns in large-cap equities.
 
----
+This combination of weak momentum and mean reversion effects is consistent with the intuition that short-term stock price movements are often noisy and difficult to predict using technical indicators alone.
 
-### Feature Engineering
+#### Next steps
 
-- Momentum features (1-day, 5-day, 10-day returns)
-- Trend indicators (MA ratio, price vs MA20)
-- Volatility (10-day, 20-day)
-- RSI (14-day)
-- Volume metrics (volume change, ratio)
-- Intraday features (high-low range, open-close change)
+Adding SPY market features, VIX volatility index and including industry/ sector information would help add some external aspects to only technical indicators. Also comparing with tree-based models, testing other prediction timeframes will provide more understanding and help evaluate the performance of the strategy.
 
----
+#### Outline of project
 
-### Exploratory Data Analysis (EDA)
+- [capstone_v1.ipynb](./capstone_v1.ipynb) = main notebook
+- [getData.ipynb](./getData.ipynb) = data collection
+- [data/stock_data.csv](./data/stock_data.csv) = dataset
 
-- Returns centered around zero
-- Slight class imbalance (~58% positive)
-- Moderate correlation between features
-- Stable volume with occasional spikes
+##### Contact and Further Information
 
----
+Avanthi Boopalan - avanthiboopalan@gmail.com
 
-### Modeling Approach
-
-- Logistic Regression baseline
-- Standardization applied
-- Hyperparameter tuning with time-series cross-validation
-- Balanced class weights
-
----
-
-### Model Evaluation
-
-- Accuracy: ~0.52  
-- Precision: ~0.56  
-- Recall: ~0.54  
-- F1 Score: ~0.55  
-- ROC-AUC: ~0.51  
-
-### Baselines
-- Majority class accuracy: ~0.55  
-- Random ROC-AUC: ~0.50  
-
----
-
-### Key Findings
-
-- ROC-AUC ≈ 0.51, indicating near-random predictive power
-- Weak momentum and mean reversion signals observed
-- Technical indicators alone insufficient for prediction
-
----
-
-### Limitations
-
-- Only technical indicators used
-- No macro or fundamental data
-- Market regime changes not modeled
-- No trading cost simulation
-- Possible survivorship bias
-
----
-
-### Next Steps
-
-- Add SPY/VIX features
-- Try nonlinear models
-- Explore longer horizons
-- Simulate trading strategies
-
----
-
-### Repository Structure
-
-- capstone_v1.ipynb = main notebook
-- getData.ipynb = data collection
-- data/stock_data.csv = dataset
-
----
-
-### Author
-
-Avanthi Boopalan
